@@ -157,8 +157,8 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
 什么情况爱下使用工厂函数？
 1：根据某些条件具体实例化哪些对象
 2：实例化对象也就是调用构造函数时，需要传递参数
-如何指定工厂函数作为提供器
-
-
-
+如何指定工厂函数作为提供器?
+  1: 把 product2.component 的 provoders 注释掉，现在 product2 和product1共用一个模块中的        provoders,数据都是一样的了
+  2： 修改app.module 中的provoders声明，由providers: [ProductService,LoggerService],改为
+  
  -->

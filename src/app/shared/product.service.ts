@@ -16,7 +16,7 @@ export class ProductService {
   LoggerService 注入到 ProductService中（private logger: LoggerService），直接在getProduct()方法中打印this.logger.log('getProduct方法被调用'); 是没办法
   打印的，因为LoggerService 也是一个服务，如果想被注入到ProductService 中，也需要声明一个LoggerService 的提供器，在模块中声明LoggerService 的提供器
   */
-  constructor(private logger: LoggerService) { }
+  constructor(public logger: LoggerService) { }
   // getProduct()方法，返回一个Product 对象,对象里面的属性值和constructor 中的对应
   getProduct(): Product {
     this.logger.log('getProduct方法被调用');
