@@ -149,6 +149,7 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
  -->
 ## 服务之间如何注入
 <!-- 
-
+1: 先生成一个 ng g service shared/logger
+2: 把这个服务注入到product.service（ProductService）中
 
  -->
