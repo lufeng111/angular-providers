@@ -134,5 +134,10 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
   ng g service shared/product
   生成一个 product 组件和 service ，
   因为服务可以再多个组件之间共享，所以放到shared文件夹下，
-  
    -->
+
+## 提供器的作用域
+<!-- 
+在这个例子中，我们将提供器声明在了app.module 中 providers: [ProductService], 除了声明在模块中提供器 providers 也可以声明在组件中
+
+ -->
