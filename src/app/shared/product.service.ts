@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-
+/*
+@Injectable装饰器，这个装饰器的意思是说这个 ProductService 也可以通过constructor注入其他服务，就是其他服务能够注入进来，但是这个服务ProductService能不能注入到其他组件取决于这个服务是否注入到模块中
+*/
 @Injectable({
   providedIn: 'root'
 })

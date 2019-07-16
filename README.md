@@ -140,4 +140,15 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
 <!-- 
 在这个例子中，我们将提供器声明在了app.module 中 providers: [ProductService], 除了声明在模块中提供器 providers 也可以声明在组件中
 
+作用域的规则：
+  1：当一个提供器声明在模块（app.module 中 providers: [ProductService]）中时，它是对所有组件可见的，所以组件都可以注入它（constructor(private productService: ProductService) { }），虽然product1没有声明ProductService的注入器，但是他是可以注入模块中声明的注入器中的token，
+
+  2: 当一个提供器声明在组件中时，它只对声明它的组件及其子组件可见，其他组件不可以注入它，
+  3： 当声明在模块中的提供器和声明在组件中的提供器具有相同的token时，声明在组件中提供器会覆盖声明在模块中的提供器，所以product2这个组件会使用anotherProductService 这个服务来获取商品的数据，
+  4： 一般我们会把 提供器优先声明在模块中，只有在服务必须对模块之外的其他组件不可见时才声明在组件中，是非常不常见的，
+ -->
+## 服务之间如何注入
+<!-- 
+
+
  -->
