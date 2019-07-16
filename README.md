@@ -151,5 +151,14 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
 <!-- 
 1: 先生成一个 ng g service shared/logger
 2: 把这个服务注入到product.service（ProductService）中
+ -->
+## 使用工厂函数和值声明提供器
+<!-- 
+什么情况爱下使用工厂函数？
+1：根据某些条件具体实例化哪些对象
+2：实例化对象也就是调用构造函数时，需要传递参数
+如何指定工厂函数作为提供器
+
+
 
  -->
