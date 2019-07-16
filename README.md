@@ -160,5 +160,22 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
 如何指定工厂函数作为提供器?
   1: 把 product2.component 的 provoders 注释掉，现在 product2 和product1共用一个模块中的        provoders,数据都是一样的了
   2： 修改app.module 中的provoders声明，由providers: [ProductService,LoggerService],改为
-  
+
+ -->
+
+## 注入器的层级关系
+<!-- 
+提供器是负责实例化依赖所需的对象，将实例化好的对象注入到组件是注入器来完成的，
+在应用启动时，angular会首先创建一个应用层级的注入器，然后将模块中声明的提供器，注册到这个注入器中，被注册的提供器除了主模块声明的以外还有所有被引用的模块中声明的提供器
+比如在应用级的程序里面除了 AppModule 本身声明的提供器providers会被注册以外，imports 中引入的所有其他模块里面声明的提供器，都会被注册到应用级的注册器里面，然后angular 会创建启动模块指定的主组件AppComponent（bootstrap: [AppComponent]），同时应用级的注入器会被主组件创建一个组件级的注入器，并将组件中声明的提供器注册到这个组件级的注入器上
+因为当前的主组件AppComponent中并没有声明任何的提供器，所以在我们的这个程序里主组件的注入器上是没有注册任何提供器的，然后在主组件的模板中会引入它的子组件，最终引入可以使用选择器<app-product1></app-product1>来引入，也可以使用路由来引入，不管用那种方式引入，引入的组件都是当前这个AppComponent的子组件，
+当子组件被创建时，它的父组件的注入器会被这个子组件也创建一个注入器，然后将子组件声明的提供器注册上去，依次类推，最后组件上会形成一组注入器，这些注入器会形成一个与组件上下级关系一样的层级关系，
+
+我们以Product1Component 为例解释一下注入器的行为：
+当Product1Component声明了自己需要的依赖时constructor(private productService: ProductService)， Product1Component组件的注入器首先会检查自身是否注册了token类型为ProductService的提供器，如果没有找到则会查找他的父组件，如果父组件还没有找到，就会一直往上查找，一直找到应用级的注入器，这时angular 发现在应用级的注入器注册了一个符合条件的提供器providers: [{provide: ProductService,}], 会根据这个提供器的配置来实例化一个ProductService，并且将其注入Product1Component 的构造函数中，如果一直到应用级的注入器都没有找到对应的提供器就会抛出一个异常，这个就是angular依赖注入的工作方式，
+
+一般情况下我们不需要编码来调用注入器的方法，angular 可以通过构造函数的参数自动注入所需的依赖，
+注意angular 框架只有一个注入点就是constructor构造函数，如果看到一个组件声明了一个没有任何参数的构造函数，那么就可以断定这个组件没有被注入任何东西，
+    
+
  -->
